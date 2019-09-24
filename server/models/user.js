@@ -13,7 +13,7 @@ const userSchema = new Schema({
 userSchema.pre('save', function(next) {
   //get access to user model
   const user = this
-
+  console.log(this)
   //generate a salt then run callback
   bcrypt.genSalt(10, function(err, salt) {
     if (err) {
@@ -32,6 +32,16 @@ userSchema.pre('save', function(next) {
     })
   })
 })
+
+userSchema.methods.comparePasswords = function(candidatePassword, callback) {
+  bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
+    if (err) {
+      return callback(err)
+    }
+
+    callback(null, isMatch)
+  })
+}
 
 //Create the model class
 const ModelClass = mongoose.model('user', userSchema)
