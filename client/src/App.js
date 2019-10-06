@@ -2,13 +2,14 @@ import React from 'react'
 import Header from './components/Header'
 import './App.css'
 
-function App() {
+const App = ({ children }) => {
   return (
     <div className="App">
       <Header />
-      Hi, I'm the app
+      {children}
     </div>
   )
 }
 
 export default App
+ 
